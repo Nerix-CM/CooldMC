@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CooldMC - Сервер Minecraft</title>
     
-    <!-- Фавиконка -->
     <link rel="icon" type="image/png" href="photos/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="photos/favicon.svg" />
     <link rel="shortcut icon" href="photos/favicon.ico" />
@@ -13,11 +12,9 @@
     <meta name="apple-mobile-web-app-title" content="CooldMC" />
     <link rel="manifest" href="photos/site.webmanifest" />
     
-    <!-- Подключаем Press Start 2P (запасной шрифт) -->
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     
     <style>
-        /* Подключение шрифта Minecraft через все 6 форматов */
         @font-face {
             font-family: 'Minecraft';
             src: url('fonts/minecraft-1-1/minecraft-1-1.eot');
@@ -52,7 +49,6 @@
             color: white;
         }
 
-        /* Чтобы контент был поверх снежинок */
         .nav-menu, .page, .bottom-right {
             z-index: 1;
             position: relative;
@@ -221,7 +217,6 @@
             padding-bottom: 10px;
         }
 
-        /* Стили для списка игроков */
         .players-list {
             display: flex;
             flex-direction: column;
@@ -304,7 +299,6 @@
             opacity: 0.7;
         }
 
-        /* Стили для правил */
         .rules-list {
             display: flex;
             flex-direction: column;
@@ -357,7 +351,6 @@
             font-style: italic;
         }
 
-        /* Стили для функций */
         .functions-list {
             display: flex;
             flex-direction: column;
@@ -395,7 +388,6 @@
             color: white;
         }
 
-        /* Стили для модов и ресурс-паков */
         .mods-list {
             display: flex;
             flex-direction: column;
@@ -638,14 +630,12 @@
         <a href="https://t.me/Nerix_CM" class="bottom-link" target="_blank">_Nerix</a>
     </div>
 
-    <!-- Подключение файлов -->
     <script src="players.js"></script>
     <script src="rules.js"></script>
     <script src="functions.js"></script>
     <script src="snow.js"></script>
 
     <script>
-        // Проверка, что данные загрузились
         console.log('playersData загружен?', typeof playersData !== 'undefined');
         console.log('rulesData загружен?', typeof rulesData !== 'undefined');
         console.log('functionsData загружен?', typeof functionsData !== 'undefined');
@@ -786,17 +776,14 @@
                 const funcDiv = document.createElement('div');
                 funcDiv.className = 'function-item';
                 
-                // Обработка текста с выделением серого цвета в скобках и жирным шрифтом для названий модов
                 let processedText = func.text;
                 
-                // Выделяем названия модов жирным (Armor Poser, Simple Voice Chat, Voice Messages, PatPat, V-CooldMC-2.3)
                 const modNames = ['Armor Poser', 'Simple Voice Chat', 'Voice Messages', 'PatPat', 'V-CooldMC-2.3'];
                 modNames.forEach(modName => {
                     const regex = new RegExp(`(${modName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'g');
                     processedText = processedText.replace(regex, '<span class="mod-name-bold">$1</span>');
                 });
                 
-                // Обработка скобок
                 processedText = processedText.replace(/\(([^)]+)\)/g, '<span class="note-gray">($1)</span>');
                 
                 funcDiv.innerHTML = `<div class="function-text">• ${processedText}</div>`;
@@ -860,7 +847,6 @@
             }
         }
 
-        // Функция получения статуса сервера (прямой API, обновление каждые 30 секунд)
         async function fetchServerStatus() {
             const statusDot = document.getElementById('status-dot');
             const statusText = document.getElementById('status-text');
