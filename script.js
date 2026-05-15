@@ -117,12 +117,10 @@ function toggleLeftSectionMobile(showOnMobile) {
 
 // Прокрутка страницы вверх
 function scrollToTop() {
-    // Прокручиваем основное окно
     window.scrollTo({
         top: 0,
         behavior: 'smooth'
     });
-    // Прокручиваем контейнер с контентом
     const rightSection = document.querySelector('.right-section');
     if (rightSection) {
         rightSection.scrollTop = 0;
@@ -131,13 +129,13 @@ function scrollToTop() {
 
 // Отображение страниц
 function renderHomePage() {
-    toggleLeftSectionMobile(true); // На телефоне показываем блок
+    toggleLeftSectionMobile(true);
     renderLatestNewsOnHome();
     scrollToTop();
 }
 
 function renderPlayersPage() {
-    toggleLeftSectionMobile(false); // На телефоне скрываем блок
+    toggleLeftSectionMobile(false);
     const rightSection = document.querySelector('.right-section');
     if (rightSection) {
         if (typeof playersData === 'undefined') {
@@ -256,7 +254,6 @@ function renderFunctionsPage() {
     scrollToTop();
 }
 
-// Функция для отображения всех новостей
 function renderAllNewsPage() {
     toggleLeftSectionMobile(false);
     const rightSection = document.querySelector('.right-section');
@@ -297,7 +294,6 @@ function renderAllNewsPage() {
     scrollToTop();
 }
 
-// Функция для отображения последней новости на главной
 function renderLatestNewsOnHome() {
     const rightSection = document.querySelector('.right-section');
     if (rightSection) {
@@ -416,10 +412,34 @@ function renderFaqPage() {
     scrollToTop();
 }
 
+function renderSkinPage() {
+    toggleLeftSectionMobile(false);
+    const rightSection = document.querySelector('.right-section');
+    if (rightSection) {
+        rightSection.innerHTML = `
+            <div class="skin-redirect">
+                <div class="skin-icon-large">🎨</div>
+                <div class="skin-title">Установка скина</div>
+                <div class="skin-description">
+                    Нажмите на кнопку ниже, чтобы перейти на сайт для загрузки скина.
+                    После загрузки скина, введите команду <span class="skin-command">/skin <ваш_ник></span> на сервере.
+                </div>
+                <a href="https://skinsrestorer.net/upload" class="skin-button" target="_blank">
+                    Перейти к установке скина →
+                </a>
+                <div class="skin-note">
+                    💡 Поддерживаются скины Java Edition (64x64 или 128x128)
+                </div>
+            </div>
+        `;
+    }
+    scrollToTop();
+}
+
 // Переключение страниц
 function getPageFromURL() {
     const hash = window.location.hash.substring(1);
-    const validPages = ['home', 'players', 'rules', 'functions', 'news', 'faq', 'map'];
+    const validPages = ['home', 'players', 'rules', 'functions', 'news', 'faq', 'map', 'skin'];
     return validPages.includes(hash) ? hash : 'home';
 }
 
@@ -472,6 +492,9 @@ function switchPage(pageId) {
         case 'faq':
             renderFaqPage();
             break;
+        case 'skin':
+            renderSkinPage();
+            break;
         default:
             renderHomePage();
     }
@@ -518,6 +541,7 @@ function setupPageSwitching() {
                 case 'functions': renderFunctionsPage(); break;
                 case 'news': renderAllNewsPage(); break;
                 case 'faq': renderFaqPage(); break;
+                case 'skin': renderSkinPage(); break;
                 default: renderHomePage();
             }
         }
@@ -568,6 +592,7 @@ document.addEventListener('DOMContentLoaded', () => {
         case 'functions': renderFunctionsPage(); break;
         case 'news': renderAllNewsPage(); break;
         case 'faq': renderFaqPage(); break;
+        case 'skin': renderSkinPage(); break;
         default: renderHomePage();
     }
     
