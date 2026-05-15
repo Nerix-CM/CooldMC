@@ -84,6 +84,7 @@ body {
     flex-direction: column;
     gap: 15px;
     padding: 0 15px;
+    flex: 1;
 }
 
 .nav-link {
@@ -131,6 +132,149 @@ body {
 
 .sidebar:hover .nav-text {
     opacity: 1;
+}
+
+/* Переключатель эффектов - скрыт по умолчанию */
+.effect-switcher {
+    margin-top: auto;
+    margin-bottom: 15px;
+    padding: 0 10px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+/* При наведении на панель - показываем */
+.sidebar:hover .effect-switcher {
+    opacity: 1;
+    visibility: visible;
+}
+
+.effect-switch {
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+    width: 100%;
+}
+
+.effect-option {
+    flex: 1;
+    text-align: center;
+    padding: 6px 4px;
+    font-size: 0.7rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: rgba(255, 255, 255, 0.6);
+    font-family: 'Minecraft', 'Courier New', monospace;
+    background-color: transparent;
+    border: none;
+}
+
+.effect-option.active {
+    background-color: #5555FF;
+    color: white;
+}
+
+.effect-option:first-child {
+    border-radius: 30px 0 0 30px;
+}
+
+.effect-option:last-child {
+    border-radius: 0 30px 30px 0;
+}
+
+/* Мобильный переключатель - скрыт по умолчанию */
+.mobile-effect-switcher {
+    margin-top: auto;
+    margin-bottom: 10px;
+    padding: 0;
+    display: none;
+}
+
+/* При открытом мобильном меню - показываем */
+.mobile-menu-overlay.open .mobile-effect-switcher {
+    display: block;
+}
+
+.mobile-effect-switch {
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 25px;
+    overflow: hidden;
+    width: 100%;
+    border: none;
+    box-shadow: none;
+}
+
+.mobile-effect-option {
+    flex: 1;
+    text-align: center;
+    padding: 6px 4px;
+    font-size: 0.7rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'Minecraft', 'Courier New', monospace;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+.mobile-effect-option.active {
+    background-color: #5555FF;
+    color: white;
+}
+
+.mobile-effect-option:first-child {
+    border-radius: 25px 0 0 25px;
+}
+
+.mobile-effect-option:last-child {
+    border-radius: 0 25px 25px 0;
+}
+
+/* Мобильный переключатель */
+.mobile-effect-switcher {
+    margin-top: auto;
+    margin-bottom: 10px;
+    padding: 0 10px;
+}
+
+.mobile-effect-switch {
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+    width: 100%;
+}
+
+.mobile-effect-option {
+    flex: 1;
+    text-align: center;
+    padding: 8px 4px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: rgba(255, 255, 255, 0.6);
+    font-family: 'Minecraft', 'Courier New', monospace;
+    background-color: transparent;
+    border: none;
+}
+
+.mobile-effect-option.active {
+    background-color: #5555FF;
+    color: white;
+}
+
+.mobile-effect-option:first-child {
+    border-radius: 30px 0 0 30px;
+}
+
+.mobile-effect-option:last-child {
+    border-radius: 0 30px 30px 0;
 }
 
 /* ===== МОБИЛЬНАЯ ВЕРХНЯЯ ПАНЕЛЬ ===== */
@@ -248,6 +392,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    flex: 1;
 }
 
 .mobile-nav-link {
@@ -281,6 +426,41 @@ body {
 
 .mobile-nav-link.active .mobile-nav-icon {
     filter: brightness(0) invert(0.6) sepia(1) hue-rotate(200deg) saturate(500%);
+}
+
+/* ===== МОБИЛЬНЫЙ ПЕРЕКЛЮЧАТЕЛЬ ЭФФЕКТОВ ===== */
+.mobile-effect-switcher {
+    margin-top: auto;
+    margin-bottom: 10px;
+    padding: 12px 15px;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.effect-btn-mobile {
+    flex: 1;
+    padding: 8px 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Minecraft', 'Courier New', monospace;
+}
+
+.effect-btn-mobile:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.effect-btn-mobile.active {
+    background-color: #5555FF;
+    color: white;
+    border-color: #5555FF;
 }
 
 /* ===== ОСНОВНОЙ КОНТЕНТ ===== */
@@ -876,20 +1056,6 @@ body {
     color: #AAAAAA;
 }
 
-.error-message {
-    color: #FF5555;
-    text-align: center;
-    padding: 40px;
-    font-size: 1.2rem;
-}
-
-.right-placeholder {
-    color: rgba(255, 255, 255, 0.3);
-    text-align: center;
-    padding: 40px;
-    font-size: 1.2rem;
-}
-
 /* Стили для страницы установки скина */
 .skin-redirect {
     text-align: center;
@@ -955,6 +1121,20 @@ body {
     color: #AAAAAA;
     padding-top: 15px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.error-message {
+    color: #FF5555;
+    text-align: center;
+    padding: 40px;
+    font-size: 1.2rem;
+}
+
+.right-placeholder {
+    color: rgba(255, 255, 255, 0.3);
+    text-align: center;
+    padding: 40px;
+    font-size: 1.2rem;
 }
 
 /* ===== МОБИЛЬНАЯ ВЕРСИЯ ===== */
