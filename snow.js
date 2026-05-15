@@ -1,3 +1,4 @@
+// snow.js - эффект падающих снежинок
 class SnowEffect {
     constructor() {
         this.container = null;
@@ -7,7 +8,6 @@ class SnowEffect {
     }
 
     init() {
-        // Создаём контейнер для снежинок
         this.container = document.createElement('div');
         this.container.style.position = 'fixed';
         this.container.style.top = '0';
@@ -15,7 +15,7 @@ class SnowEffect {
         this.container.style.width = '100%';
         this.container.style.height = '100%';
         this.container.style.pointerEvents = 'none';
-        this.container.style.zIndex = '-1'; // ← МЕНЯЕМ на -1 (снег под всем контентом)
+        this.container.style.zIndex = '-1';
         this.container.style.overflow = 'hidden';
         document.body.appendChild(this.container);
         
@@ -28,8 +28,7 @@ class SnowEffect {
     }
 
     resize() {
-        // При изменении размера окна ничего не делаем с существующими снежинками
-        // Они просто продолжат падать
+        // При изменении размера окна ничего не делаем
     }
 
     createSnowflakes(count) {
@@ -128,8 +127,8 @@ class SnowEffect {
     }
 }
 
-// Запускаем снег при загрузке страницы
-document.addEventListener('DOMContentLoaded', () => {
-    const snow = new SnowEffect();
-    snow.init();
-});
+// УДАЛИТЬ ИЛИ ЗАКОММЕНТИРОВАТЬ автозапуск:
+// document.addEventListener('DOMContentLoaded', () => {
+//     const snow = new SnowEffect();
+//     snow.init();
+// });
