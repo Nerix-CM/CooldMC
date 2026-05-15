@@ -106,10 +106,8 @@ function toggleLeftSectionMobile(showOnMobile) {
     const leftSection = document.querySelector('.left-section');
     if (leftSection) {
         if (window.innerWidth <= 768) {
-            // На телефоне: скрываем на всех вкладках, кроме главной
             leftSection.style.display = showOnMobile ? 'flex' : 'none';
         } else {
-            // На ПК: всегда показываем
             leftSection.style.display = 'flex';
         }
     }
@@ -412,30 +410,6 @@ function renderFaqPage() {
     scrollToTop();
 }
 
-function renderSkinPage() {
-    toggleLeftSectionMobile(false);
-    const rightSection = document.querySelector('.right-section');
-    if (rightSection) {
-        rightSection.innerHTML = `
-            <div class="skin-redirect">
-                <div class="skin-icon-large">🎨</div>
-                <div class="skin-title">Установка скина</div>
-                <div class="skin-description">
-                    Нажмите на кнопку ниже, чтобы перейти на сайт для загрузки скина.
-                    После загрузки скина, введите команду <span class="skin-command">/skin <ваш_ник></span> на сервере.
-                </div>
-                <a href="https://skinsrestorer.net/upload" class="skin-button" target="_blank">
-                    Перейти к установке скина →
-                </a>
-                <div class="skin-note">
-                    💡 Поддерживаются скины Java Edition (64x64 или 128x128)
-                </div>
-            </div>
-        `;
-    }
-    scrollToTop();
-}
-
 // Переключение страниц
 function getPageFromURL() {
     const hash = window.location.hash.substring(1);
@@ -502,6 +476,53 @@ function switchPage(pageId) {
     }
 }
 
+function setupPageSwitching() {
+    const navLinks = document.querySelectorAll('.nav-link');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+    
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const pageId = link.getAttribute('data-page');
+            switchPage(pageId);
+            
+            const mobileMenu = document.getElementById('mobileMenuOverlay');
+            if (mobileMenu && mobileMenu.classList.contains('open')) {
+                mobileMenu.classList.remove('open');
+            }
+        });
+    });
+    
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const pageId = link.getAttribute('data-page');
+            switchPage(pageId);
+            
+            const mobileMenu = document.getElementById('mobileMenuOverlay');
+            if (mobileMenu) {
+                mobileMenu.classList.remove('open');
+            }
+        });
+    });
+    
+    window.addEventListener('hashchange', () => {
+        const pageId = getPageFromURL();
+        if (pageId !== 'map' && pageId !== 'skin') {
+            updateActivePage(pageId);
+            switch(pageId) {
+                case 'home': renderHomePage(); break;
+                case 'players': renderPlayersPage(); break;
+                case 'rules': renderRulesPage(); break;
+                case 'functions': renderFunctionsPage(); break;
+                case 'news': renderAllNewsPage(); break;
+                case 'faq': renderFaqPage(); break;
+                default: renderHomePage();
+            }
+        }
+    });
+}
+
 function setupMobileMenu() {
     const menuIcon = document.getElementById('menuIcon');
     const mobileMenu = document.getElementById('mobileMenuOverlay');
@@ -546,16 +567,20 @@ document.addEventListener('DOMContentLoaded', () => {
         case 'functions': renderFunctionsPage(); break;
         case 'news': renderAllNewsPage(); break;
         case 'faq': renderFaqPage(); break;
-        case 'skin': renderSkinPage(); break;
+        case 'skin': 
+            // Если URL ведёт на skin, просто открываем ссылку
+            window.open('https://skinsrestorer.net/upload', '_blank');
+            window.location.hash = 'home';
+            renderHomePage();
+            break;
         default: renderHomePage();
     }
     
-    // При изменении размера окна обновляем видимость блока
     window.addEventListener('resize', () => {
         const currentPage = getPageFromURL();
         if (currentPage === 'home') {
             toggleLeftSectionMobile(true);
-        } else {
+        } else if (currentPage !== 'map' && currentPage !== 'skin') {
             toggleLeftSectionMobile(false);
         }
     });
