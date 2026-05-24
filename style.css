@@ -524,12 +524,12 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.2);
     padding: 8px 18px;
     cursor: pointer;
-    min-width: 180px;
+    min-width: 170px;
     text-align: center;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-    height: 40px;
+    height: 38px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -558,7 +558,7 @@ body {
 }
 
 .copy-text {
-    top: 150%;
+    top: 200%;
     transform: translateY(0);
     color: #888888;
 }
@@ -1159,89 +1159,97 @@ body {
     .server-status-wrapper {
         justify-content: space-between;
         flex-wrap: nowrap;
-        gap: 15px;
-    }
-    
-    .server-status {
-        padding: 6px 14px;
-        flex-shrink: 0;
-    }
-    
-    .status-text {
-        font-size: 0.8rem;
-        white-space: nowrap;
-    }
-    
-    .status-dot {
-        width: 10px;
-        height: 10px;
-    }
-    
-    .ip-button {
-        padding: 6px 14px;
-        min-width: 160px;
-        height: 36px;
-        flex-shrink: 0;
-    }
-    
-    .ip-text, .copy-text {
-        font-size: 0.75rem;
-    }
-    
-    .copy-text {
-        top: 160%;
-    }
-}
-
-@media (max-width: 600px) {
-    .server-status-wrapper {
-        gap: 12px;
-    }
-    
-    .server-status {
-        padding: 5px 12px;
-    }
-    
-    .status-text {
-        font-size: 0.75rem;
-    }
-    
-    .ip-button {
-        padding: 5px 12px;
-        min-width: 145px;
-        height: 34px;
-    }
-    
-    .ip-text, .copy-text {
-        font-size: 0.7rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .server-status-wrapper {
         gap: 10px;
+        align-items: center;
     }
     
     .server-status {
         padding: 4px 10px;
+        flex-shrink: 1;
+        min-width: 0;
     }
     
     .status-text {
         font-size: 0.7rem;
+        white-space: nowrap;
     }
     
     .status-dot {
         width: 8px;
         height: 8px;
+        flex-shrink: 0;
     }
     
     .ip-button {
         padding: 4px 10px;
-        min-width: 130px;
+        min-width: 120px;
         height: 32px;
+        flex-shrink: 1;
     }
     
     .ip-text, .copy-text {
         font-size: 0.65rem;
+    }
+    
+    .copy-text {
+        top: 180%;
+    }
+}
+
+@media (max-width: 600px) {
+    .server-status-wrapper {
+        gap: 8px;
+    }
+    
+    .server-status {
+        padding: 3px 8px;
+    }
+    
+    .status-text {
+        font-size: 0.65rem;
+    }
+    
+    .status-dot {
+        width: 7px;
+        height: 7px;
+    }
+    
+    .ip-button {
+        padding: 3px 8px;
+        min-width: 110px;
+        height: 30px;
+    }
+    
+    .ip-text, .copy-text {
+        font-size: 0.6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .server-status-wrapper {
+        gap: 6px;
+    }
+    
+    .server-status {
+        padding: 2px 6px;
+    }
+    
+    .status-text {
+        font-size: 0.6rem;
+    }
+    
+    .status-dot {
+        width: 6px;
+        height: 6px;
+    }
+    
+    .ip-button {
+        padding: 2px 6px;
+        min-width: 100px;
+        height: 28px;
+    }
+    
+    .ip-text, .copy-text {
+        font-size: 0.55rem;
     }
 }
