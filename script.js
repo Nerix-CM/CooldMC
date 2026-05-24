@@ -703,3 +703,59 @@ function setupEffectSwitcher() {
             startLeavesEffect();
         } else if (effectName === 'none') {
             stopCurrentEffect();
+        }
+    }
+    
+    buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const effect = btn.getAttribute('data-effect');
+            setActiveEffect(effect);
+        });
+    });
+    
+    mobileButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const effect = btn.getAttribute('data-effect');
+            setActiveEffect(effect);
+        });
+    });
+    
+    setActiveEffect('snow');
+}
+
+// Запуск при загрузке страницы
+document.addEventListener('DOMContentLoaded', () => {
+    fetchServerStatus();
+    setupMobileMenu();
+    setupPageSwitching();
+    setupEffectSwitcher();
+    setupIpCopy();
+    
+    const initialPage = getPageFromURL();
+    updateActivePage(initialPage);
+    switch(initialPage) {
+        case 'home': renderHomePage(); break;
+        case 'players': renderPlayersPage(); break;
+        case 'rules': renderRulesPage(); break;
+        case 'functions': renderFunctionsPage(); break;
+        case 'news': renderAllNewsPage(); break;
+        case 'faq': renderFaqPage(); break;
+        case 'skin': 
+            window.open('https://skinsrestorer.net/upload', '_blank');
+            window.location.hash = 'home';
+            renderHomePage();
+            break;
+        default: renderHomePage();
+    }
+    
+    window.addEventListener('resize', () => {
+        const currentPage = getPageFromURL();
+        if (currentPage === 'home') {
+            toggleLeftSectionMobile(true);
+        } else if (currentPage !== 'map' && currentPage !== 'skin') {
+            toggleLeftSectionMobile(false);
+        }
+    });
+    
+    setInterval(fetchServerStatus, 30000);
+});
