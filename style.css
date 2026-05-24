@@ -1211,14 +1211,25 @@ body {
     }
     
     .server-status-wrapper {
-        flex-direction: column;
-        gap: 15px;
+        gap: 20px;
+        justify-content: flex-start;
+    }
+    
+    .server-status {
+        padding: 8px 16px;
+        height: auto;
+        min-height: 44px;
+    }
+    
+    .status-text {
+        font-size: 0.9rem;
+        white-space: nowrap;
     }
     
     .ip-button {
-        min-width: 200px;
         padding: 8px 16px;
-        height: 45px;
+        min-width: 190px;
+        height: 44px;
     }
     
     .ip-text, .copy-text {
@@ -1332,13 +1343,29 @@ body {
         margin-bottom: 15px;
     }
     
+    .server-status-wrapper {
+        gap: 15px;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    
     .server-status {
         padding: 6px 12px;
-        gap: 10px;
+        min-height: 40px;
     }
     
     .status-text {
-        font-size: 0.8rem;
+        font-size: 0.85rem;
+    }
+    
+    .ip-button {
+        padding: 6px 12px;
+        min-width: 170px;
+        height: 40px;
+    }
+    
+    .ip-text, .copy-text {
+        font-size: 0.75rem;
     }
     
     .mobile-top-icon {
@@ -1394,6 +1421,23 @@ body {
     
     .description {
         font-size: 0.65rem;
+    }
+    
+    .server-status-wrapper {
+        gap: 12px;
+        justify-content: center;
+    }
+    
+    .status-text {
+        font-size: 0.8rem;
+    }
+    
+    .ip-button {
+        min-width: 160px;
+    }
+    
+    .ip-text, .copy-text {
+        font-size: 0.7rem;
     }
     
     .mobile-top-icon {
