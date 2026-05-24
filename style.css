@@ -462,6 +462,16 @@ body {
     text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.3);
 }
 
+/* Блок статуса сервера и IP */
+.server-status-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
 .server-status {
     display: inline-flex;
     align-items: center;
@@ -502,6 +512,67 @@ body {
     font-weight: bold;
 }
 
+/* Кнопка копирования IP */
+.ip-copy-container {
+    display: inline-flex;
+}
+
+.ip-button {
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 10px 20px;
+    cursor: pointer;
+    min-width: 220px;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    height: 50px;
+}
+
+.ip-button:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+    transform: scale(1.02);
+}
+
+.ip-text, .copy-text {
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    font-family: 'Minecraft', 'Courier New', monospace;
+    font-size: 0.9rem;
+}
+
+.ip-text {
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+}
+
+.copy-text {
+    top: 100%;
+    transform: translateY(0);
+    color: #888888;
+}
+
+.ip-button.copied .ip-text {
+    transform: translateY(-150%);
+    opacity: 0;
+}
+
+.ip-button.copied .copy-text {
+    transform: translateY(-50%);
+    top: 50%;
+}
+
+.ip-button.copy-success .copy-text {
+    color: #55FF55;
+}
+
 .right-section {
     flex: 2;
     display: flex;
@@ -526,7 +597,7 @@ body {
     border-radius: 3px;
 }
 
-/* Стили для списка игроков */
+/* ===== СТИЛИ ДЛЯ ПРАВОЙ СЕКЦИИ ===== */
 .players-container {
     display: flex;
     flex-direction: column;
@@ -1134,14 +1205,25 @@ body {
         font-size: 0.85rem;
     }
     
+    .server-status-wrapper {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .ip-button {
+        min-width: 200px;
+        padding: 8px 16px;
+        height: 45px;
+    }
+    
+    .ip-text, .copy-text {
+        font-size: 0.8rem;
+    }
+    
     .right-section {
         min-height: 200px;
         width: 100%;
         max-height: none;
-    }
-    
-    .server-status {
-        justify-content: flex-start;
     }
     
     .player-card {
@@ -1151,6 +1233,7 @@ body {
     
     .player-stats {
         text-align: center;
+        justify-content: center;
     }
     
     .functions-container {
