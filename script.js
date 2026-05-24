@@ -31,7 +31,6 @@ function startLeavesEffect() {
 }
 
 // Функция получения статуса сервера
-// Функция получения статуса сервера (обновлённая)
 async function fetchServerStatus() {
     const statusDot = document.getElementById('status-dot');
     const statusText = document.getElementById('status-text');
@@ -66,23 +65,17 @@ function setupIpCopy() {
     let timeoutId = null;
     
     ipButton.addEventListener('click', async () => {
-        // Копируем IP в буфер обмена
         try {
             await navigator.clipboard.writeText(serverIp);
             
-            // Меняем состояние кнопки
             ipButton.classList.add('copied');
             ipButton.classList.add('copy-success');
-            
-            // Меняем текст на "Скопировано!"
             copyText.textContent = 'Скопировано!';
             
-            // Убираем предыдущий таймер если есть
             if (timeoutId) {
                 clearTimeout(timeoutId);
             }
             
-            // Через 3 секунды возвращаем всё обратно
             timeoutId = setTimeout(() => {
                 ipButton.classList.remove('copied');
                 ipButton.classList.remove('copy-success');
@@ -92,7 +85,6 @@ function setupIpCopy() {
             
         } catch (err) {
             console.error('Ошибка копирования:', err);
-            // Временное сообщение об ошибке
             copyText.textContent = 'Ошибка!';
             setTimeout(() => {
                 copyText.textContent = 'Скопировать';
@@ -168,15 +160,15 @@ function getDaysBetween(startDate, endDate) {
 function sortPlayersByRoleAndDays(players) {
     const today = new Date().toISOString().split('T')[0];
     const roleOrder = { 
-        gl_admin: 0,      // ГЛ.Администратор
-        admin: 1,         // Администратор
-        gl_moderator: 2,  // ГЛ.Модератор
-        st_moderator: 3,  // СТ.Модератор
-        moderator: 4,     // Модератор
-        gl_helper: 5,     // ГЛ.Хелпер
-        st_helper: 6,     // СТ.Хелпер
-        helper: 7,        // Хелпер
-        beta: 8           // Бета-тестер
+        gl_admin: 0,
+        admin: 1,
+        gl_moderator: 2,
+        st_moderator: 3,
+        moderator: 4,
+        gl_helper: 5,
+        st_helper: 6,
+        helper: 7,
+        beta: 8
     };
     
     return [...players].sort((a, b) => {
@@ -233,7 +225,6 @@ function renderPlayersPage() {
         const today = new Date().toISOString().split('T')[0];
         const sortedPlayers = sortPlayersByRoleAndDays(playersData);
         
-        // Функция для получения текста роли
         function getRoleText(role) {
             switch(role) {
                 case 'gl_admin': return 'ГЛ.Администратор';
@@ -249,7 +240,6 @@ function renderPlayersPage() {
             }
         }
         
-        // Функция для получения класса роли
         function getRoleClass(role) {
             switch(role) {
                 case 'gl_admin': return 'role-gl_admin';
@@ -713,58 +703,3 @@ function setupEffectSwitcher() {
             startLeavesEffect();
         } else if (effectName === 'none') {
             stopCurrentEffect();
-        }
-    }
-    
-    buttons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const effect = btn.getAttribute('data-effect');
-            setActiveEffect(effect);
-        });
-    });
-    
-    mobileButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const effect = btn.getAttribute('data-effect');
-            setActiveEffect(effect);
-        });
-    });
-    
-    setActiveEffect('snow');
-}
-
-// Запуск при загрузке страницы
-document.addEventListener('DOMContentLoaded', () => {
-    fetchServerStatus();
-    setupMobileMenu();
-    setupPageSwitching();
-    setupEffectSwitcher();
-    
-    const initialPage = getPageFromURL();
-    updateActivePage(initialPage);
-    switch(initialPage) {
-        case 'home': renderHomePage(); break;
-        case 'players': renderPlayersPage(); break;
-        case 'rules': renderRulesPage(); break;
-        case 'functions': renderFunctionsPage(); break;
-        case 'news': renderAllNewsPage(); break;
-        case 'faq': renderFaqPage(); break;
-        case 'skin': 
-            window.open('https://skinsrestorer.net/upload', '_blank');
-            window.location.hash = 'home';
-            renderHomePage();
-            break;
-        default: renderHomePage();
-    }
-    
-    window.addEventListener('resize', () => {
-        const currentPage = getPageFromURL();
-        if (currentPage === 'home') {
-            toggleLeftSectionMobile(true);
-        } else if (currentPage !== 'map' && currentPage !== 'skin') {
-            toggleLeftSectionMobile(false);
-        }
-    });
-    
-    setInterval(fetchServerStatus, 30000);
-});
