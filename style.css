@@ -474,8 +474,8 @@ body {
 .server-status {
     display: inline-flex;
     align-items: center;
-    gap: 15px;
-    padding: 8px 18px;
+    gap: 12px;
+    padding: 8px 16px;
     background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(5px);
     border-radius: 12px;
@@ -522,9 +522,9 @@ body {
     backdrop-filter: blur(5px);
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 8px 18px;
+    padding: 8px 16px;
     cursor: pointer;
-    min-width: 170px;
+    min-width: 180px;
     text-align: center;
     transition: all 0.3s ease;
     position: relative;
@@ -549,6 +549,7 @@ body {
     font-family: 'Minecraft', 'Courier New', monospace;
     font-size: 0.85rem;
     line-height: 1;
+    white-space: nowrap;
 }
 
 .ip-text {
@@ -1156,6 +1157,62 @@ body {
 
 /* ===== МОБИЛЬНАЯ ВЕРСИЯ ===== */
 @media (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
+    
+    .mobile-top-bar {
+        display: flex;
+    }
+    
+    .menu-icon {
+        display: flex;
+    }
+    
+    .main-content {
+        margin-left: 0;
+        padding-top: 0;
+    }
+    
+    .container {
+        flex-direction: column;
+        padding: 20px;
+        padding-top: 80px;
+        gap: 20px;
+        align-items: flex-start;
+        justify-content: flex-start;
+        min-height: 100vh;
+    }
+    
+    .left-section {
+        max-width: 100%;
+        width: 100%;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+    
+    .content-card {
+        padding: 20px;
+        text-align: left;
+        width: 100%;
+    }
+    
+    .welcome-title {
+        font-size: 1.6rem;
+        white-space: normal;
+        margin-bottom: 15px;
+    }
+    
+    .server-name {
+        font-size: 2rem;
+        margin-bottom: 15px;
+    }
+    
+    .description {
+        font-size: 0.85rem;
+        margin-bottom: 20px;
+    }
+    
     .server-status-wrapper {
         justify-content: space-between;
         flex-wrap: nowrap;
@@ -1164,7 +1221,7 @@ body {
     }
     
     .server-status {
-        padding: 4px 10px;
+        padding: 5px 12px;
         flex-shrink: 1;
         min-width: 0;
     }
@@ -1181,28 +1238,52 @@ body {
     }
     
     .ip-button {
-        padding: 4px 10px;
-        min-width: 120px;
+        padding: 5px 12px;
+        min-width: 140px;
         height: 32px;
         flex-shrink: 1;
     }
     
     .ip-text, .copy-text {
         font-size: 0.65rem;
+        white-space: nowrap;
     }
     
-    .copy-text {
-        top: 180%;
+    .right-section {
+        min-height: 200px;
+        width: 100%;
+        max-height: none;
     }
 }
 
 @media (max-width: 600px) {
+    .container {
+        padding: 15px;
+        padding-top: 70px;
+    }
+    
+    .content-card {
+        padding: 15px;
+    }
+    
+    .welcome-title {
+        font-size: 1.3rem;
+    }
+    
+    .server-name {
+        font-size: 1.6rem;
+    }
+    
+    .description {
+        font-size: 0.75rem;
+    }
+    
     .server-status-wrapper {
         gap: 8px;
     }
     
     .server-status {
-        padding: 3px 8px;
+        padding: 4px 10px;
     }
     
     .status-text {
@@ -1215,23 +1296,76 @@ body {
     }
     
     .ip-button {
-        padding: 3px 8px;
-        min-width: 110px;
+        padding: 4px 10px;
+        min-width: 125px;
         height: 30px;
     }
     
     .ip-text, .copy-text {
         font-size: 0.6rem;
     }
+    
+    .mobile-top-icon {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .mobile-top-title {
+        font-size: 1rem;
+    }
+    
+    .mobile-menu-overlay {
+        width: 70%;
+    }
+    
+    .mobile-server-icon {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .mobile-menu-title {
+        font-size: 1.4rem;
+    }
+    
+    .mobile-nav-link {
+        font-size: 1rem;
+        padding: 10px 12px;
+    }
+    
+    .mobile-nav-icon {
+        width: 24px;
+        height: 24px;
+    }
 }
 
 @media (max-width: 480px) {
+    .container {
+        padding: 12px;
+        padding-top: 60px;
+    }
+    
+    .content-card {
+        padding: 12px;
+    }
+    
+    .welcome-title {
+        font-size: 1.1rem;
+    }
+    
+    .server-name {
+        font-size: 1.3rem;
+    }
+    
+    .description {
+        font-size: 0.65rem;
+    }
+    
     .server-status-wrapper {
         gap: 6px;
     }
     
     .server-status {
-        padding: 2px 6px;
+        padding: 3px 8px;
     }
     
     .status-text {
@@ -1244,12 +1378,57 @@ body {
     }
     
     .ip-button {
-        padding: 2px 6px;
-        min-width: 100px;
+        padding: 3px 8px;
+        min-width: 115px;
         height: 28px;
     }
     
     .ip-text, .copy-text {
         font-size: 0.55rem;
+    }
+    
+    .mobile-top-icon {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .mobile-top-title {
+        font-size: 0.9rem;
+    }
+    
+    .mobile-menu-overlay {
+        width: 80%;
+    }
+    
+    .mobile-server-icon {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .mobile-menu-title {
+        font-size: 1.2rem;
+    }
+    
+    .mobile-nav-link {
+        font-size: 0.9rem;
+        padding: 8px 10px;
+    }
+    
+    .mobile-nav-icon {
+        width: 22px;
+        height: 22px;
+    }
+    
+    .mod-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .mod-info {
+        text-align: center;
+    }
+    
+    .download-btn {
+        align-self: center;
     }
 }
