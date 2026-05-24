@@ -1221,7 +1221,7 @@ body {
     }
     
     .server-status {
-        padding: 5px 12px;
+        padding: 11px 12px;
         flex-shrink: 1;
         min-width: 0;
     }
@@ -1238,8 +1238,8 @@ body {
     }
     
     .ip-button {
-        padding: 5px 12px;
-        min-width: 140px;
+        padding: 5px 12px; /*5 12*/
+        min-width: 150px;
         height: 32px;
         flex-shrink: 1;
     }
@@ -1283,7 +1283,7 @@ body {
     }
     
     .server-status {
-        padding: 4px 10px;
+        padding: 8px 10px;
     }
     
     .status-text {
@@ -1296,8 +1296,8 @@ body {
     }
     
     .ip-button {
-        padding: 4px 10px;
-        min-width: 125px;
+        padding: 4px 10px; /*4 10*/
+        min-width: 135px;
         height: 30px;
     }
     
@@ -1365,7 +1365,7 @@ body {
     }
     
     .server-status {
-        padding: 3px 8px;
+        padding: 7px 8px; /*3 8*/
     }
     
     .status-text {
@@ -1378,8 +1378,8 @@ body {
     }
     
     .ip-button {
-        padding: 3px 8px;
-        min-width: 115px;
+        padding: 3px 8px; /*3 8*/
+        min-width: 130px; /*115*/
         height: 28px;
     }
     
