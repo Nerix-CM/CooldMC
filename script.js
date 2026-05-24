@@ -31,6 +31,7 @@ function startLeavesEffect() {
 }
 
 // Функция получения статуса сервера
+// Функция получения статуса сервера (обновлённая)
 async function fetchServerStatus() {
     const statusDot = document.getElementById('status-dot');
     const statusText = document.getElementById('status-text');
@@ -51,6 +52,53 @@ async function fetchServerStatus() {
         statusText.textContent = 'Ошибка подключения';
         console.error('Ошибка:', error);
     }
+}
+
+// Функция для копирования IP
+function setupIpCopy() {
+    const ipButton = document.getElementById('ipButton');
+    const ipText = document.getElementById('ipText');
+    const copyText = document.getElementById('copyText');
+    const serverIp = 'CooldMC.my-craft.cc';
+    
+    if (!ipButton) return;
+    
+    let timeoutId = null;
+    
+    ipButton.addEventListener('click', async () => {
+        // Копируем IP в буфер обмена
+        try {
+            await navigator.clipboard.writeText(serverIp);
+            
+            // Меняем состояние кнопки
+            ipButton.classList.add('copied');
+            ipButton.classList.add('copy-success');
+            
+            // Меняем текст на "Скопировано!"
+            copyText.textContent = 'Скопировано!';
+            
+            // Убираем предыдущий таймер если есть
+            if (timeoutId) {
+                clearTimeout(timeoutId);
+            }
+            
+            // Через 3 секунды возвращаем всё обратно
+            timeoutId = setTimeout(() => {
+                ipButton.classList.remove('copied');
+                ipButton.classList.remove('copy-success');
+                copyText.textContent = 'Скопировать';
+                timeoutId = null;
+            }, 3000);
+            
+        } catch (err) {
+            console.error('Ошибка копирования:', err);
+            // Временное сообщение об ошибке
+            copyText.textContent = 'Ошибка!';
+            setTimeout(() => {
+                copyText.textContent = 'Скопировать';
+            }, 1500);
+        }
+    });
 }
 
 // Форматирование даты для новостей
