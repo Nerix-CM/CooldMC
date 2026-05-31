@@ -58,7 +58,7 @@ function setupIpCopy() {
     const ipButton = document.getElementById('ipButton');
     const ipText = document.getElementById('ipText');
     const copyText = document.getElementById('copyText');
-    const serverIp = 'mc.CooldMC.ru';
+    const serverIp = 'mc.cooldmc.ru';
     
     if (!ipButton) return;
     
