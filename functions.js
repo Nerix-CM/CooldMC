@@ -13,7 +13,6 @@ const functionsData = [
     { text: "Невидимые рамки, можно более красиво декорировать дом." },
     { text: "Голосовой чат, разговаривайте с другом прямо в игре. Для этого требуется мод Simple Voice Chat, ссылка на мод указана ниже." },
     { text: "Кастомная музыка на дисках, можно загружать свою, абсолютно любую музыку на диски. Для того требуется мод Simple Voice Chat." },
-    { text: "Голосовые сообщения в чат, если нужно быстро сообщить какую-то информацию, это отличное решение. Для этого требуется мод Voice Messages, ссылка на мод указана ниже." },
     { text: "Садиться на игрока, плиту или ступеньку, можно просто нажав ПКМ." },
     { text: "Ограниченный мир, если попытаться выбраться за границы (острова), вы просто погибните." },
     { text: "Сообщения над головой игрока, теперь можно даже не смотреть в чат." },
@@ -32,6 +31,5 @@ const modsData = [
     { type: "Ресурс пак", name: "V-CooldMC-2.7.1", link: "https://drive.google.com/file/d/13F5T9AbNUKXJ6LqkyezsstMlcW9FG-Ke/view?usp=drivesdk" },
     { type: "Мод", name: "Armor Poser", link: "https://modrinth.com/mod/armor-poser" },
     { type: "Мод", name: "Simple Voice Chat", link: "https://modrinth.com/plugin/simple-voice-chat" },
-    { type: "Мод", name: "Voice Messages", link: "https://modrinth.com/plugin/voicemessages" }, 
     { type: "Мод", name: "PatPat", link: "https://modrinth.com/plugin/patpat" }
 ];
