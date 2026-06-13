@@ -3,6 +3,7 @@
 /*
 gl_admin ГЛ.Администратор (&c)
 admin Администратор (&c)
+builder Билдер (&e)
 gl_moderator ГЛ.Модератор (&9)
 st_moderator СТ.Модератор (&9)
 moderator Модератор (&9)
@@ -24,5 +25,6 @@ const playersData = [
     { name: "Ded7s", role: null, joinDate: "2025-12-26" },
     { name: "C_A_D_1_S_T", role: null, joinDate: "2026-02-04" },
     { name: "_Zora_", role: null, joinDate: "2025-11-25"},
-    { name: "_Enflis_", role: null, joinDate: "2026-04-25"}
+    { name: "_Enflis_", role: null, joinDate: "2026-04-25"},
+    { name: "Devo4ka_Me4t", role: "builder", joinDate: "2026-06-12"}
 ];
