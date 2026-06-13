@@ -162,13 +162,14 @@ function sortPlayersByRoleAndDays(players) {
     const roleOrder = { 
         gl_admin: 0,
         admin: 1,
-        gl_moderator: 2,
-        st_moderator: 3,
-        moderator: 4,
-        gl_helper: 5,
-        st_helper: 6,
-        helper: 7,
-        beta: 8
+        builder: 2,
+        gl_moderator: 3,
+        st_moderator: 4,
+        moderator: 5,
+        gl_helper: 6,
+        st_helper: 7,
+        helper: 8,
+        beta: 9
     };
     
     return [...players].sort((a, b) => {
