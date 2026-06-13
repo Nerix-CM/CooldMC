@@ -246,6 +246,7 @@ function renderPlayersPage() {
             switch(role) {
                 case 'gl_admin': return 'role-gl_admin';
                 case 'admin': return 'role-admin';
+                case 'builder':return 'role-builder';
                 case 'gl_moderator': return 'role-gl_moderator';
                 case 'st_moderator': return 'role-st_moderator';
                 case 'moderator': return 'role-moderator';
