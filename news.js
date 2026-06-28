@@ -52,7 +52,7 @@ const newsData = [
     {
         title: "Поддержка Bedrock Edition возвращена.",
         image: null,
-        description: "Bedrock Edition снова работает! Осталась та же java 1.21.6 и bedrock 26.21. Адрес: 217.65.3.28, порт: 26781, теперь можно спокойно играть!",
+        description: "Bedrock Edition снова работает! Осталась та же java 1.21.6 и bedrock 26.21. Адрес: mc.cooldmc.ru, порт: 26781, теперь можно спокойно играть!",
         date: "2026-06-06T12:00:00"
     }
 ];
