@@ -24,6 +24,6 @@ const playersData = [
     { name: "Skortek", role: null, joinDate: "2025-09-13" },
     { name: "Ded7s", role: null, joinDate: "2025-12-26" },
     { name: "_Zora_", role: "moderator", joinDate: "2025-11-25"},
-    { name: "_Enflis_", role: null, joinDate: "2026-04-25"},
-    { name: "Devo4ka_Me4t", role: "builder", joinDate: "2026-06-12"}
+    { name: "_Enflis_", role: null, joinDate: "2026-04-25"}
+    //{ name: "Devo4ka_Me4t", role: "builder", joinDate: "2026-06-12"}
 ];
