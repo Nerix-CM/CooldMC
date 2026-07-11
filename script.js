@@ -321,22 +321,28 @@ function renderFunctionsPage() {
             scrollToTop();
             return;
         }
-        
+
         let html = '<div class="functions-container">';
-        html += '<div class="functions-list">';
+
+        // Блок функций (как новости, но без даты)
         functionsData.forEach(func => {
-            let processedText = func.text;
-            const modNames = ['Armor Poser', 'Simple Voice Chat', 'Voice Messages', 'PatPat', 'V-CooldMC-2.4'];
-            modNames.forEach(modName => {
-                const regex = new RegExp(`(${modName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'g');
-                processedText = processedText.replace(regex, '<span class="mod-name-bold">$1</span>');
-            });
-            processedText = processedText.replace(/«([^»]+)»/g, '<span class="bold-quote">«$1</span>');
-            processedText = processedText.replace(/\(([^)]+)\)/g, '<span class="note-gray">($1)</span>');
-            html += `<div class="function-item">• ${processedText}</div>`;
+            const imageHtml = func.image && func.image !== null ?
+                `<div class="function-image"><img src="photos/${func.image}" alt="${func.title}"></div>` :
+                '';
+
+            html += `
+                <div class="function-card">
+                    <div class="function-title">${func.title}</div>
+                    <div class="function-divider"></div>
+                    ${imageHtml}
+                    <div class="function-description">${func.description}</div>
+                </div>
+            `;
         });
+
         html += '</div>';
-        
+
+        // Моды и ресурс-паки (оставляем как было)
         html += '<div class="mods-title">Моды и ресурс паки:</div>';
         html += '<div class="mods-list">';
         modsData.forEach(mod => {
@@ -351,6 +357,7 @@ function renderFunctionsPage() {
             `;
         });
         html += '</div></div>';
+
         rightSection.innerHTML = html;
     }
     scrollToTop();
