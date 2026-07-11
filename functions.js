@@ -2,8 +2,8 @@
 
 const functionsData = [
     {
-        title: null,
-        image: "functions/hats.png",
+        title: "Шапки жителей",
+        image: null,
         description: "Можно скрафтить шапки жителей и носить их у себя на голове. Для этого требуется ресурс пак, ссылка на ресурс пак указана ниже."
     },
     {
