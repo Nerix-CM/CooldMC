@@ -777,7 +777,7 @@ body {
 }
 
 .function-title {
-    font-size: 1.8rem;
+    font-size: 2.2rem;
     font-weight: bold;
     color: #5555FF;
     margin-bottom: 12px;
@@ -804,7 +804,7 @@ body {
 }
 
 .function-description {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     color: #DDDDDD;
     line-height: 1.6;
     word-wrap: break-word;
@@ -812,7 +812,7 @@ body {
 
 /* Моды и ресурс-паки */
 .mods-title {
-    font-size: 2.2rem;
+    font-size: 2.5rem;
     color: white;
     text-shadow: 2px 2px 0px #2a2a2a;
     margin: 30px 0 20px 0;
@@ -860,12 +860,12 @@ body {
 }
 
 .mod-type {
-    font-size: 1rem;
+    font-size: 1.2rem;
     color: #5555FF;
 }
 
 .mod-name {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     color: white;
     word-wrap: break-word;
 }
@@ -876,7 +876,7 @@ body {
     text-decoration: none;
     padding: 6px 18px;
     border-radius: 12px;
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: bold;
     transition: all 0.3s ease;
     font-family: 'Minecraft', 'Press Start 2P', monospace;
