@@ -763,10 +763,10 @@ body {
     background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(5px);
     border-radius: 15px;
-    padding: 20px;
+    padding: 25px 30px;
     border: 1px solid rgba(255, 255, 255, 0.2);
     transition: all 0.3s ease;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     width: 100%;
     box-sizing: border-box;
 }
@@ -777,45 +777,45 @@ body {
 }
 
 .function-title {
-    font-size: 2.2rem;
+    font-size: 2.5rem;
     font-weight: bold;
     color: #5555FF;
-    margin-bottom: 12px;
+    margin-bottom: 15px;
     word-wrap: break-word;
 }
 
 .function-divider {
     height: 2px;
     background: linear-gradient(90deg, #5555FF, transparent);
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .function-image {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     border-radius: 12px;
     overflow: hidden;
 }
 
 .function-image img {
     width: 100%;
-    max-height: 250px;
+    max-height: 300px;
     object-fit: cover;
     border-radius: 12px;
 }
 
 .function-description {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     color: #DDDDDD;
-    line-height: 1.6;
+    line-height: 1.7;
     word-wrap: break-word;
 }
 
 /* Моды и ресурс-паки */
 .mods-title {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     color: white;
     text-shadow: 2px 2px 0px #2a2a2a;
-    margin: 30px 0 20px 0;
+    margin: 40px 0 25px 0;
     text-align: left;
     border-bottom: 2px solid rgba(255, 255, 255, 0.3);
     padding-bottom: 10px;
@@ -824,7 +824,7 @@ body {
 .mods-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 15px;
     width: 100%;
     max-width: 100%;
     overflow-x: hidden;
@@ -837,7 +837,7 @@ body {
     background-color: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(3px);
     border-radius: 12px;
-    padding: 12px 20px;
+    padding: 18px 25px;
     border-left: 4px solid #5555FF;
     gap: 15px;
     transition: all 0.3s ease;
@@ -854,18 +854,18 @@ body {
 .mod-info {
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 5px;
     flex: 1;
     min-width: 120px;
 }
 
 .mod-type {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     color: #5555FF;
 }
 
 .mod-name {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     color: white;
     word-wrap: break-word;
 }
@@ -874,9 +874,9 @@ body {
     background-color: #55FF55;
     color: #000000;
     text-decoration: none;
-    padding: 6px 18px;
+    padding: 8px 22px;
     border-radius: 12px;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: bold;
     transition: all 0.3s ease;
     font-family: 'Minecraft', 'Press Start 2P', monospace;
@@ -1303,14 +1303,6 @@ body {
         padding: 15px;
     }
     
-    .function-title {
-        font-size: 1.2rem;
-    }
-    
-    .function-description {
-        font-size: 0.85rem;
-    }
-    
     .function-image img {
         max-height: 180px;
     }
@@ -1326,10 +1318,6 @@ body {
         min-width: 100px;
     }
     
-    .download-btn {
-        padding: 5px 14px;
-        font-size: 0.8rem;
-    }
 }
 
 @media (max-width: 600px) {
@@ -1423,11 +1411,6 @@ body {
         width: 100%;
     }
     
-    .download-btn {
-        align-self: flex-start;
-        padding: 4px 12px;
-        font-size: 0.75rem;
-    }
 }
 
 @media (max-width: 480px) {
@@ -1527,12 +1510,4 @@ body {
         padding: 10px 12px;
     }
     
-    .mod-name {
-        font-size: 0.95rem;
-    }
-    
-    .download-btn {
-        font-size: 0.7rem;
-        padding: 3px 10px;
-    }
 }
