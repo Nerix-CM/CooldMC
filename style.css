@@ -1299,18 +1299,31 @@ body {
         padding-right: 0;
     }
     
+    /* КРУПНЫЙ ШРИФТ ДЛЯ ФУНКЦИЙ НА ТЕЛЕФОНЕ */
     .function-card {
-        padding: 15px;
+        padding: 18px 20px;
+    }
+    
+    .function-title {
+        font-size: 2rem;
+    }
+    
+    .function-description {
+        font-size: 1.3rem;
     }
     
     .function-image img {
-        max-height: 180px;
+        max-height: 200px;
+    }
+    
+    .mods-title {
+        font-size: 2.2rem;
     }
     
     .mod-card {
         flex-direction: row;
         flex-wrap: wrap;
-        padding: 12px 15px;
+        padding: 14px 18px;
     }
     
     .mod-info {
@@ -1318,6 +1331,18 @@ body {
         min-width: 100px;
     }
     
+    .mod-type {
+        font-size: 1.2rem;
+    }
+    
+    .mod-name {
+        font-size: 1.6rem;
+    }
+    
+    .download-btn {
+        padding: 6px 18px;
+        font-size: 1.1rem;
+    }
 }
 
 @media (max-width: 600px) {
@@ -1401,16 +1426,47 @@ body {
         height: 24px;
     }
     
+    /* КРУПНЫЙ ШРИФТ ДЛЯ ФУНКЦИЙ НА МАЛЕНЬКОМ ТЕЛЕФОНЕ */
+    .function-title {
+        font-size: 1.8rem;
+    }
+    
+    .function-description {
+        font-size: 1.2rem;
+    }
+    
+    .function-image img {
+        max-height: 160px;
+    }
+    
+    .mods-title {
+        font-size: 2rem;
+    }
+    
     .mod-card {
         flex-direction: column;
         align-items: flex-start;
         gap: 10px;
+        padding: 12px 15px;
     }
     
     .mod-info {
         width: 100%;
     }
     
+    .mod-type {
+        font-size: 1.1rem;
+    }
+    
+    .mod-name {
+        font-size: 1.4rem;
+    }
+    
+    .download-btn {
+        align-self: flex-start;
+        padding: 5px 14px;
+        font-size: 1rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1494,20 +1550,41 @@ body {
         height: 22px;
     }
     
+    /* КРУПНЫЙ ШРИФТ ДЛЯ ФУНКЦИЙ НА САМОМ МАЛЕНЬКОМ ЭКРАНЕ */
     .function-card {
-        padding: 12px;
+        padding: 12px 15px;
     }
     
     .function-title {
-        font-size: 1rem;
+        font-size: 1.6rem;
     }
     
     .function-description {
-        font-size: 0.75rem;
+        font-size: 1.1rem;
+    }
+    
+    .function-image img {
+        max-height: 130px;
+    }
+    
+    .mods-title {
+        font-size: 1.6rem;
     }
     
     .mod-card {
         padding: 10px 12px;
     }
     
+    .mod-type {
+        font-size: 1rem;
+    }
+    
+    .mod-name {
+        font-size: 1.2rem;
+    }
+    
+    .download-btn {
+        font-size: 0.9rem;
+        padding: 4px 12px;
+    }
 }
