@@ -340,9 +340,7 @@ function renderFunctionsPage() {
             `;
         });
 
-        html += '</div>';
-
-        // Моды и ресурс-паки (оставляем как было)
+        // Моды и ресурс-паки (под функциями)
         html += '<div class="mods-title">Моды и ресурс паки:</div>';
         html += '<div class="mods-list">';
         modsData.forEach(mod => {
@@ -356,7 +354,9 @@ function renderFunctionsPage() {
                 </div>
             `;
         });
-        html += '</div></div>';
+        html += '</div>';
+
+        html += '</div>'; // Закрываем functions-container
 
         rightSection.innerHTML = html;
     }
