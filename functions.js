@@ -93,7 +93,7 @@ const functionsData = [
     },
     {
         title: "Компас",
-        image: "functions/compass.png",
+        image: null,
         description: "Компас, главная фича сервера. Прописав команду „/compass“ можно направить компас на игрока, точку смерти игрока и на метку поставленную игроками."
     },
     {
