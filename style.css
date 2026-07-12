@@ -758,6 +758,7 @@ body {
     overflow-x: hidden;
 }
 
+/* Стили для функций (как новости, но без даты) */
 .function-card {
     background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(5px);
@@ -776,7 +777,7 @@ body {
 }
 
 .function-title {
-    font-size: 1.4rem;
+    font-size: 1.8rem;
     font-weight: bold;
     color: #5555FF;
     margin-bottom: 12px;
@@ -803,14 +804,15 @@ body {
 }
 
 .function-description {
-    font-size: 0.95rem;
+    font-size: 1.1rem;
     color: #DDDDDD;
-    line-height: 1.5;
+    line-height: 1.6;
     word-wrap: break-word;
 }
 
+/* Моды и ресурс-паки */
 .mods-title {
-    font-size: 1.8rem;
+    font-size: 2.2rem;
     color: white;
     text-shadow: 2px 2px 0px #2a2a2a;
     margin: 30px 0 20px 0;
@@ -858,12 +860,12 @@ body {
 }
 
 .mod-type {
-    font-size: 0.85rem;
+    font-size: 1rem;
     color: #5555FF;
 }
 
 .mod-name {
-    font-size: 1.1rem;
+    font-size: 1.4rem;
     color: white;
     word-wrap: break-word;
 }
@@ -874,7 +876,7 @@ body {
     text-decoration: none;
     padding: 6px 18px;
     border-radius: 12px;
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: bold;
     transition: all 0.3s ease;
     font-family: 'Minecraft', 'Press Start 2P', monospace;
