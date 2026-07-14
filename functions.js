@@ -32,6 +32,11 @@ const functionsData = [
         description: "Гладьте любого игрока по голове. Для этого требуется мод PatPat, ссылка на мод указана ниже."
     },
     {
+        title: "Эмоции игроков",
+        image: null,
+        description: "Махание рукой, танцы и много другое, всего лишь нажатием одной клавиши. Есть поддержка некоторых эмоций Bedrock Edition. Для этого требуется мод EmoteCraft, ссылка на мод указана ниже."
+    },
+    {
         title: "Красители на броне",
         image: null,
         description: "Теперь на броню можно наложить не только руды, но и красители. Самое время делать розовенький сетик!"
@@ -122,5 +127,6 @@ const modsData = [
     { type: "Ресурс пак (авто загрузка на сервере)", name: "CooldMC-3.0", link: "https://drive.google.com/file/d/1KNpdM3lJJd8WzNiPgieOEYgb0j7fprAE/view?usp=drivesdk" },
     { type: "Мод", name: "Armor Poser", link: "https://modrinth.com/mod/armor-poser" },
     { type: "Мод", name: "Simple Voice Chat", link: "https://modrinth.com/plugin/simple-voice-chat" },
-    { type: "Мод", name: "PatPat", link: "https://modrinth.com/plugin/patpat" }
+    { type: "Мод", name: "PatPat", link: "https://modrinth.com/plugin/patpat" },
+    { type: "Мод", name: "EmoteCraft", link: "https://modrinth.com/plugin/emotecraft" }
 ];
