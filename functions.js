@@ -129,5 +129,5 @@ const modsData = [
     { type: "Мод", name: "Simple Voice Chat", link: "https://modrinth.com/plugin/simple-voice-chat" },
     { type: "Мод", name: "PatPat", link: "https://modrinth.com/plugin/patpat" },
     { type: "Мод", name: "EmoteCraft", link: "https://modrinth.com/plugin/emotecraft" }, 
-    { type: "Ресурс пак", name: "Emotions SPEMOTES", link: "https://drive.google.com/file/d/1e6K8KCSd3JG-KpykVHFzlTA6uEZpGyau/view?usp=sharing" }
+    { type: "Набор эмоций", name: "Emotions SPEMOTES", link: "https://drive.google.com/file/d/1e6K8KCSd3JG-KpykVHFzlTA6uEZpGyau/view?usp=sharing" }
 ];
