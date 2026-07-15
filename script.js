@@ -363,6 +363,13 @@ function renderFunctionsPage() {
     scrollToTop();
 }
 
+// Функция для получения параметра из URL
+function getNewsIdFromURL() {
+    const hash = window.location.hash;
+    const match = hash.match(/news\?(.+)/);
+    return match ? decodeURIComponent(match[1]) : null;
+}
+
 function renderAllNewsPage() {
     toggleLeftSectionMobile(false);
     const rightSection = document.querySelector('.right-section');
@@ -374,6 +381,7 @@ function renderAllNewsPage() {
         }
         
         const sortedNews = [...newsData].sort((a, b) => new Date(b.date) - new Date(a.date));
+        const targetNewsId = getNewsIdFromURL();
         
         let html = '<div class="news-container">';
         
@@ -382,8 +390,11 @@ function renderAllNewsPage() {
             const imageHtml = news.image && news.image !== null ? 
                 `<div class="news-image"><img src="photos/${news.image}" alt="${news.title}"></div>` : '';
             
+            // Добавляем id как атрибут для прокрутки
+            const newsId = news.id || `news-${Date.now()}-${Math.random()}`;
+            
             html += `
-                <div class="news-card">
+                <div class="news-card" data-news-id="${newsId}">
                     <div class="news-title">${news.title}</div>
                     <div class="news-divider"></div>
                     ${imageHtml}
@@ -399,6 +410,27 @@ function renderAllNewsPage() {
         
         html += '</div>';
         rightSection.innerHTML = html;
+        
+        // Если есть целевая новость — прокручиваем к ней
+        if (targetNewsId) {
+            const targetElement = rightSection.querySelector(`[data-news-id="${targetNewsId}"]`);
+            if (targetElement) {
+                setTimeout(() => {
+                    targetElement.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start' 
+                    });
+                    // Подсветка новости
+                    targetElement.style.borderColor = '#5555FF';
+                    targetElement.style.boxShadow = '0 0 20px rgba(85,85,255,0.5)';
+                    targetElement.style.transition = 'border-color 0.3s ease, box-shadow 0.3s ease';
+                    setTimeout(() => {
+                        targetElement.style.borderColor = 'rgba(255,255,255,0.2)';
+                        targetElement.style.boxShadow = 'none';
+                    }, 3000);
+                }, 300);
+            }
+        }
     }
     scrollToTop();
 }
@@ -419,6 +451,10 @@ function renderLatestNewsOnHome() {
             const imageHtml = latestNews.image && latestNews.image !== null ? 
                 `<div class="latest-news-image"><img src="photos/${latestNews.image}" alt="${latestNews.title}"></div>` : '';
             
+            // Создаём ссылку на новость с id
+            const newsId = latestNews.id || 'latest';
+            const newsLink = `#news?${encodeURIComponent(newsId)}`;
+            
             let html = `
                 <div class="latest-news-section">
                     <div class="latest-news-header">
@@ -435,6 +471,7 @@ function renderLatestNewsOnHome() {
                             <span>${dateInfo.dateFormatted}</span>
                             <span class="news-timeago">• ${dateInfo.timeAgo}</span>
                         </div>
+                        <a href="${newsLink}" class="news-read-more">Читать полностью →</a>
                     </div>
                     <div class="all-news-link">
                         <a href="#" class="all-news-btn" data-page="news">Все новости →</a>
@@ -449,6 +486,19 @@ function renderLatestNewsOnHome() {
                 allNewsBtn.addEventListener('click', (e) => {
                     e.preventDefault();
                     switchPage('news');
+                });
+            }
+            
+            // Обработчик для кнопки "Читать полностью"
+            const readMoreBtn = rightSection.querySelector('.news-read-more');
+            if (readMoreBtn) {
+                readMoreBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const href = readMoreBtn.getAttribute('href');
+                    if (href) {
+                        window.location.hash = href;
+                        switchPage('news');
+                    }
                 });
             }
         } else {
@@ -548,6 +598,10 @@ function renderSkinPage() {
 // Переключение страниц
 function getPageFromURL() {
     const hash = window.location.hash.substring(1);
+    // Проверяем, есть ли параметр после ?
+    if (hash.startsWith('news?')) {
+        return 'news';
+    }
     const validPages = ['home', 'players', 'rules', 'functions', 'news', 'faq', 'map', 'skin'];
     return validPages.includes(hash) ? hash : 'home';
 }
@@ -584,7 +638,16 @@ function switchPage(pageId) {
         return;
     }
     
-    window.location.hash = pageId;
+    // Если переключаемся на новости, но есть параметр — сохраняем его
+    let hash = pageId;
+    if (pageId === 'news') {
+        const currentNewsId = getNewsIdFromURL();
+        if (currentNewsId) {
+            hash = `news?${encodeURIComponent(currentNewsId)}`;
+        }
+    }
+    
+    window.location.hash = hash;
     updateActivePage(pageId);
     
     switch(pageId) {
