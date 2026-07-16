@@ -142,44 +142,10 @@ function getMinutesWord(minutes) {
     return 'минут';
 }
 
-// Форматирование даты для игроков
+// Форматирование даты для игроков (оставляем на случай, если понадобится)
 function formatDate(dateString) {
     const date = new Date(dateString);
     return date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' });
-}
-
-// Функции для игроков
-function getDaysBetween(startDate, endDate) {
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    start.setHours(0, 0, 0, 0);
-    end.setHours(0, 0, 0, 0);
-    return Math.ceil((end - start) / (1000 * 60 * 60 * 24));
-}
-
-function sortPlayersByRoleAndDays(players) {
-    const today = new Date().toISOString().split('T')[0];
-    const roleOrder = { 
-        gl_admin: 0,
-        admin: 1,
-        gl_moderator: 2,
-        st_moderator: 3,
-        moderator: 4,
-        builder: 5,
-        gl_helper: 6,
-        st_helper: 7,
-        helper: 8,
-        beta: 9
-    };
-    
-    return [...players].sort((a, b) => {
-        const orderA = roleOrder[a.role] ?? 99;
-        const orderB = roleOrder[b.role] ?? 99;
-        if (orderA !== orderB) return orderA - orderB;
-        const daysA = getDaysBetween(a.joinDate, today);
-        const daysB = getDaysBetween(b.joinDate, today);
-        return daysB - daysA;
-    });
 }
 
 // Управление видимостью левой секции
@@ -210,76 +176,6 @@ function scrollToTop() {
 function renderHomePage() {
     toggleLeftSectionMobile(true);
     renderLatestNewsOnHome();
-    scrollToTop();
-}
-
-function renderPlayersPage() {
-    toggleLeftSectionMobile(false);
-    const rightSection = document.querySelector('.right-section');
-    if (rightSection) {
-        if (typeof playersData === 'undefined') {
-            rightSection.innerHTML = '<div class="error-message">Ошибка загрузки данных игроков</div>';
-            scrollToTop();
-            return;
-        }
-        
-        const today = new Date().toISOString().split('T')[0];
-        const sortedPlayers = sortPlayersByRoleAndDays(playersData);
-        
-        function getRoleText(role) {
-            switch(role) {
-                case 'gl_admin': return 'ГЛ.Администратор';
-                case 'admin': return 'Администратор';
-                case 'builder': return 'Билдер';
-                case 'gl_moderator': return 'ГЛ.Модератор';
-                case 'st_moderator': return 'СТ.Модератор';
-                case 'moderator': return 'Модератор';
-                case 'gl_helper': return 'ГЛ.Хелпер';
-                case 'st_helper': return 'СТ.Хелпер';
-                case 'helper': return 'Хелпер';
-                case 'beta': return 'Бета-тестер';
-                default: return null;
-            }
-        }
-        
-        function getRoleClass(role) {
-            switch(role) {
-                case 'gl_admin': return 'role-gl_admin';
-                case 'admin': return 'role-admin';
-                case 'builder':return 'role-builder';
-                case 'gl_moderator': return 'role-gl_moderator';
-                case 'st_moderator': return 'role-st_moderator';
-                case 'moderator': return 'role-moderator';
-                case 'gl_helper': return 'role-gl_helper';
-                case 'st_helper': return 'role-st_helper';
-                case 'helper': return 'role-helper';
-                case 'beta': return 'role-beta';
-                default: return null;
-            }
-        }
-        
-        let html = '<div class="players-container">';
-        sortedPlayers.forEach(player => {
-            const daysOnServer = getDaysBetween(player.joinDate, today);
-            const roleText = getRoleText(player.role);
-            const roleClass = getRoleClass(player.role);
-            
-            html += `
-                <div class="player-card">
-                    <div class="player-info">
-                        <div class="player-name">${player.name}</div>
-                        ${roleText ? `<div class="player-role ${roleClass}">${roleText}</div>` : ''}
-                    </div>
-                    <div class="player-stats">
-                        <div class="player-join-date">📅 ${formatDate(player.joinDate)}</div>
-                        <div class="player-days">⏱ ${daysOnServer} дн.</div>
-                    </div>
-                </div>
-            `;
-        });
-        html += '</div>';
-        rightSection.innerHTML = html;
-    }
     scrollToTop();
 }
 
@@ -356,7 +252,7 @@ function renderFunctionsPage() {
         });
         html += '</div>';
 
-        html += '</div>'; // Закрываем functions-container
+        html += '</div>';
 
         rightSection.innerHTML = html;
     }
@@ -390,7 +286,6 @@ function renderAllNewsPage() {
             const imageHtml = news.image && news.image !== null ? 
                 `<div class="news-image"><img src="photos/${news.image}" alt="${news.title}"></div>` : '';
             
-            // Добавляем id как атрибут для прокрутки
             const newsId = news.id || `news-${Date.now()}-${Math.random()}`;
             
             html += `
@@ -411,7 +306,6 @@ function renderAllNewsPage() {
         html += '</div>';
         rightSection.innerHTML = html;
         
-        // Если есть целевая новость — прокручиваем к ней
         if (targetNewsId) {
             const targetElement = rightSection.querySelector(`[data-news-id="${targetNewsId}"]`);
             if (targetElement) {
@@ -420,7 +314,6 @@ function renderAllNewsPage() {
                         behavior: 'smooth', 
                         block: 'start' 
                     });
-                    // Подсветка новости
                     targetElement.style.borderColor = '#5555FF';
                     targetElement.style.boxShadow = '0 0 20px rgba(85,85,255,0.5)';
                     targetElement.style.transition = 'border-color 0.3s ease, box-shadow 0.3s ease';
@@ -451,7 +344,6 @@ function renderLatestNewsOnHome() {
             const imageHtml = latestNews.image && latestNews.image !== null ? 
                 `<div class="latest-news-image"><img src="photos/${latestNews.image}" alt="${latestNews.title}"></div>` : '';
             
-            // Создаём ссылку на новость с id
             const newsId = latestNews.id || 'latest';
             const newsLink = `#news?${encodeURIComponent(newsId)}`;
             
@@ -489,7 +381,6 @@ function renderLatestNewsOnHome() {
                 });
             }
             
-            // Обработчик для кнопки "Читать полностью"
             const readMoreBtn = rightSection.querySelector('.news-read-more');
             if (readMoreBtn) {
                 readMoreBtn.addEventListener('click', (e) => {
@@ -598,11 +489,10 @@ function renderSkinPage() {
 // Переключение страниц
 function getPageFromURL() {
     const hash = window.location.hash.substring(1);
-    // Проверяем, есть ли параметр после ?
     if (hash.startsWith('news?')) {
         return 'news';
     }
-    const validPages = ['home', 'players', 'rules', 'functions', 'news', 'faq', 'map', 'skin'];
+    const validPages = ['home', 'rules', 'functions', 'news', 'faq', 'map', 'skin'];
     return validPages.includes(hash) ? hash : 'home';
 }
 
@@ -638,7 +528,6 @@ function switchPage(pageId) {
         return;
     }
     
-    // Если переключаемся на новости, но есть параметр — сохраняем его
     let hash = pageId;
     if (pageId === 'news') {
         const currentNewsId = getNewsIdFromURL();
@@ -653,9 +542,6 @@ function switchPage(pageId) {
     switch(pageId) {
         case 'home':
             renderHomePage();
-            break;
-        case 'players':
-            renderPlayersPage();
             break;
         case 'rules':
             renderRulesPage();
@@ -710,7 +596,6 @@ function setupPageSwitching() {
             updateActivePage(pageId);
             switch(pageId) {
                 case 'home': renderHomePage(); break;
-                case 'players': renderPlayersPage(); break;
                 case 'rules': renderRulesPage(); break;
                 case 'functions': renderFunctionsPage(); break;
                 case 'news': renderAllNewsPage(); break;
@@ -808,7 +693,6 @@ document.addEventListener('DOMContentLoaded', () => {
     updateActivePage(initialPage);
     switch(initialPage) {
         case 'home': renderHomePage(); break;
-        case 'players': renderPlayersPage(); break;
         case 'rules': renderRulesPage(); break;
         case 'functions': renderFunctionsPage(); break;
         case 'news': renderAllNewsPage(); break;
