@@ -36,7 +36,7 @@ async function fetchServerStatus() {
     const statusText = document.getElementById('status-text');
     
     try {
-        const response = await fetch('https://api.mcsrvstat.us/2/217.65.3.28:26058');
+        const response = await fetch('https://api.mcsrvstat.us/2/mc.cooldmc.ru');
         const data = await response.json();
         
         if (data.online) {
