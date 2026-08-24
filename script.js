@@ -519,7 +519,7 @@ function updateActivePage(pageId) {
 
 function switchPage(pageId) {
     if (pageId === 'map') {
-        window.open('http://188.127.241.222:25729', '_blank');
+        window.open('http://map.cooldmc.ru:15065/#world:0:0:0:1500:0:0:0:0:perspective', '_blank');
         return;
     }
     
