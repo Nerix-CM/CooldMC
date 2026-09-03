@@ -47,18 +47,71 @@
             width: 100%;
             max-width: 380px;
             box-shadow: 0 20px 40px rgba(255, 80, 120, 0.25);
-            transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.5);
             position: relative;
             z-index: 10;
+            transition: opacity 0.3s ease;
         }
 
-        .window.hidden {
-            opacity: 0;
-            transform: scale(0.92) translateY(20px);
+        /* Анимация смывания водой */
+        .window.splash {
+            animation: splashDown 0.8s cubic-bezier(0.34, 1.0, 0.64, 1) forwards;
+        }
+
+        @keyframes splashDown {
+            0% {
+                transform: scale(1) translateY(0) rotate(0deg);
+                opacity: 1;
+                border-radius: 100px;
+            }
+            25% {
+                transform: scale(1.04) translateY(8px) rotate(1deg);
+                opacity: 0.9;
+                border-radius: 80px;
+            }
+            50% {
+                transform: scale(0.95) translateY(30px) rotate(2deg);
+                opacity: 0.6;
+                border-radius: 50px;
+            }
+            75% {
+                transform: scale(0.85) translateY(70px) rotate(3deg);
+                opacity: 0.3;
+                border-radius: 30px;
+            }
+            100% {
+                transform: scale(0.7) translateY(140px) rotate(4deg);
+                opacity: 0;
+                border-radius: 10px;
+            }
+        }
+
+        /* Капли воды (для эффекта) */
+        .water-drop {
+            position: fixed;
             pointer-events: none;
-            transition: opacity 0.25s ease, transform 0.3s ease;
+            z-index: 999;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(2px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: dropFall 0.8s cubic-bezier(0.34, 1.0, 0.64, 1) forwards;
+        }
+
+        @keyframes dropFall {
+            0% {
+                transform: scale(0) translateY(0);
+                opacity: 0.8;
+            }
+            30% {
+                transform: scale(1) translateY(10px);
+                opacity: 0.9;
+            }
+            100% {
+                transform: scale(0.3) translateY(120px);
+                opacity: 0;
+            }
         }
 
         .hint-text {
@@ -135,7 +188,7 @@
             opacity: 0.3;
         }
 
-        /* Контейнер сердечек — фиксирован, перекрывает всё */
+        /* Контейнер сердечек */
         .hearts-container {
             position: fixed;
             top: 0;
@@ -143,7 +196,7 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 9999;
+            z-index: 9998;
             overflow: hidden;
         }
 
@@ -154,7 +207,6 @@
             animation: fall linear forwards;
             will-change: transform, opacity;
             text-shadow: 0 0 20px rgba(255, 80, 120, 0.5);
-            /* Стартуем за пределами экрана сверху */
             top: -20px;
             transform: translateY(-40px) rotate(0deg) scale(1.2);
         }
@@ -173,7 +225,7 @@
             }
         }
 
-        /* Финальный контент (появляется после ползунка) */
+        /* Финальный контент (появляется после смывания) */
         .final-content {
             position: absolute;
             top: 50%;
@@ -184,14 +236,29 @@
             text-align: center;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.5s ease 0.2s;
             z-index: 20;
             padding: 16px;
         }
 
-        .final-content.show {
-            opacity: 1;
-            pointer-events: auto;
+        .final-content.pop-up {
+            animation: popUp 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            animation-delay: 0.5s;
+            opacity: 0;
+        }
+
+        @keyframes popUp {
+            0% {
+                transform: translate(-50%, -50%) scale(0.5) translateY(40px);
+                opacity: 0;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.05) translateY(-8px);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1) translateY(0);
+                opacity: 1;
+            }
         }
 
         .final-content h2 {
@@ -233,6 +300,11 @@
             box-shadow: 0 6px 16px rgba(200, 30, 60, 0.5);
         }
 
+        /* Скрываем окно после анимации */
+        .window.hidden {
+            display: none;
+        }
+
         @media (max-width: 480px) {
             .window {
                 padding: 28px 20px 34px;
@@ -260,43 +332,7 @@
             }
         }
 
-        /* Скрываем окно и подсказку, когда финальный контент активен */
-        .container.final .window {
-            opacity: 0;
-            transform: scale(0.92) translateY(20px);
-            pointer-events: none;
-        }
-
-        .container.final .hint-text {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .container.final .final-content {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .container.final .final-content h2,
-        .container.final .final-content p,
-        .container.final .final-content .forgive-btn {
-            animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        }
-
-        .container.final .final-content p {
-            animation-delay: 0.08s;
-            opacity: 0;
-        }
-        .container.final .final-content .forgive-btn {
-            animation-delay: 0.16s;
-            opacity: 0;
-        }
-
-        @keyframes popIn {
-            0% { opacity: 0; transform: scale(0.8) translateY(12px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
+        /* На случай, если что-то пойдет не так */
         .hidden {
             display: none;
         }
@@ -329,51 +365,66 @@
         const sliderThumb = document.getElementById('sliderThumb');
         const sliderFill = document.getElementById('sliderFill');
         const hintText = document.getElementById('hintText');
+        const windowEl = document.getElementById('sliderWindow');
         const finalContent = document.getElementById('finalContent');
         const heartsContainer = document.getElementById('heartsContainer');
 
         let isDragging = false;
         let isCompleted = false;
 
-        // Генерация крупных розовых сердец, стартующих за экраном
-        function rainHearts(count = 36) {
-            const containerWidth = window.innerWidth;
-            const containerHeight = window.innerHeight;
-
+        // Генерация сердечек
+        function rainHearts(count = 30) {
             for (let i = 0; i < count; i++) {
                 const heart = document.createElement('div');
                 heart.className = 'heart';
-                // только розовые оттенки (с разной насыщенностью)
-                const pinkShades = ['❤️', '❤️', '❤️', '❤️', '❤️', '❤️', '❤️', '❤️', '❤️'];
-                heart.textContent = pinkShades[Math.floor(Math.random() * pinkShades.length)];
+                heart.textContent = '❤️';
                 
-                // размер побольше
                 const size = 3.4 + Math.random() * 2.2;
                 heart.style.fontSize = size + 'rem';
+                heart.style.left = Math.random() * 100 + '%';
                 
-                // разброс по горизонтали (от края до края)
-                const leftPos = Math.random() * 100;
-                heart.style.left = leftPos + '%';
-                
-                // разная длительность падения
                 const duration = 2.4 + Math.random() * 2.2;
                 heart.style.animationDuration = duration + 's';
-                
-                // небольшая задержка, чтобы создать "ливень"
-                const delay = Math.random() * 1.4;
-                heart.style.animationDelay = delay + 's';
-                
-                // начальное положение чуть выше экрана
+                heart.style.animationDelay = Math.random() * 1.4 + 's';
                 heart.style.top = '-40px';
                 
                 heartsContainer.appendChild(heart);
 
-                // удаляем после завершения анимации
                 setTimeout(() => {
                     if (heart.parentNode) {
                         heart.remove();
                     }
-                }, (duration + delay) * 1000 + 400);
+                }, (duration + 1.4) * 1000 + 400);
+            }
+        }
+
+        // Создание капель воды
+        function createWaterDrops() {
+            const rect = windowEl.getBoundingClientRect();
+            const dropCount = 16;
+            
+            for (let i = 0; i < dropCount; i++) {
+                const drop = document.createElement('div');
+                drop.className = 'water-drop';
+                const size = 6 + Math.random() * 14;
+                const xPos = rect.left + rect.width * (0.1 + Math.random() * 0.8);
+                const yPos = rect.top + rect.height * (0.1 + Math.random() * 0.8);
+                
+                drop.style.cssText = `
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${xPos}px;
+                    top: ${yPos}px;
+                    animation-delay: ${Math.random() * 0.3}s;
+                    background: rgba(255, 255, 255, ${0.3 + Math.random() * 0.5});
+                `;
+                document.body.appendChild(drop);
+                
+                setTimeout(() => {
+                    if (drop.parentNode) {
+                        drop.remove();
+                    }
+                }, 1200);
             }
         }
 
@@ -381,18 +432,29 @@
             if (isCompleted) return;
             isCompleted = true;
 
-            // 1. Запускаем дождь из сердец (они перекроют окно)
-            rainHearts(44);
+            // 1. Запускаем дождь из сердец
+            rainHearts(35);
 
-            // 2. Через небольшую задержку скрываем окно и показываем финал
+            // 2. Через 0.3 сек начинаем смывание водой
             setTimeout(() => {
-                container.classList.add('final');
+                // Добавляем класс для анимации смывания
+                windowEl.classList.add('splash');
+                
+                // Создаем капли воды
+                createWaterDrops();
+                
+                // Прячем подсказку
                 hintText.classList.add('fade');
-                const windowEl = document.getElementById('sliderWindow');
-                if (windowEl) {
+                
+                // 3. После завершения анимации (0.8 сек) показываем финальный контент
+                setTimeout(() => {
                     windowEl.classList.add('hidden');
-                }
-            }, 260);
+                    finalContent.classList.add('pop-up');
+                    // Делаем контейнер выше, чтобы финал был виден
+                    container.style.minHeight = '460px';
+                }, 850);
+                
+            }, 300);
         }
 
         function getClientX(e) {
