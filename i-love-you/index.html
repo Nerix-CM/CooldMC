@@ -23,9 +23,9 @@
             margin: 0;
             touch-action: pan-y;
             position: relative;
+            overflow-x: hidden;
         }
 
-        /* Контейнер для окна и всего содержимого */
         .container {
             position: relative;
             width: 100%;
@@ -42,7 +42,7 @@
             background: rgba(255, 255, 255, 0.75);
             backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
-            border-radius: 100px; /* скругление 100% = овал/эллипс */
+            border-radius: 100px;
             padding: 32px 28px 40px;
             width: 100%;
             max-width: 380px;
@@ -75,7 +75,6 @@
             opacity: 0;
         }
 
-        /* Слайдер-ползунок */
         .slider-track {
             width: 100%;
             height: 56px;
@@ -136,7 +135,7 @@
             opacity: 0.3;
         }
 
-        /* сердечки падают */
+        /* Контейнер сердечек — фиксирован, перекрывает всё */
         .hearts-container {
             position: fixed;
             top: 0;
@@ -144,35 +143,37 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 999;
+            z-index: 9999;
             overflow: hidden;
         }
 
         .heart {
             position: absolute;
-            font-size: 2.2rem;
+            font-size: 3.8rem;
+            opacity: 0;
             animation: fall linear forwards;
-            opacity: 0.9;
-            filter: drop-shadow(0 4px 8px rgba(200, 0, 50, 0.2));
             will-change: transform, opacity;
+            text-shadow: 0 0 20px rgba(255, 80, 120, 0.5);
+            /* Стартуем за пределами экрана сверху */
+            top: -20px;
+            transform: translateY(-40px) rotate(0deg) scale(1.2);
         }
 
         @keyframes fall {
             0% {
-                transform: translateY(-20px) rotate(0deg) scale(0.8);
-                opacity: 0.7;
+                opacity: 0.9;
+                transform: translateY(-20px) rotate(0deg) scale(1.2);
             }
-            20% {
+            10% {
                 opacity: 1;
-                transform: translateY(10vh) rotate(10deg) scale(1);
             }
             100% {
-                transform: translateY(110vh) rotate(45deg) scale(0.4);
                 opacity: 0.1;
+                transform: translateY(110vh) rotate(35deg) scale(0.7);
             }
         }
 
-        /* Текст после исчезновения окна */
+        /* Финальный контент (появляется после ползунка) */
         .final-content {
             position: absolute;
             top: 50%;
@@ -224,7 +225,7 @@
             border: 2px solid rgba(255, 255, 255, 0.4);
             letter-spacing: 1px;
             backdrop-filter: blur(2px);
-            background-color: #ff4d6d; /* fallback */
+            background-color: #ff4d6d;
         }
 
         .forgive-btn:active {
@@ -232,7 +233,6 @@
             box-shadow: 0 6px 16px rgba(200, 30, 60, 0.5);
         }
 
-        /* Адаптив */
         @media (max-width: 480px) {
             .window {
                 padding: 28px 20px 34px;
@@ -255,6 +255,9 @@
                 font-size: 1.2rem;
                 padding: 14px 36px;
             }
+            .heart {
+                font-size: 3.2rem;
+            }
         }
 
         /* Скрываем окно и подсказку, когда финальный контент активен */
@@ -274,7 +277,6 @@
             pointer-events: auto;
         }
 
-        /* Дополнительно: плавное появление */
         .container.final .final-content h2,
         .container.final .final-content p,
         .container.final .final-content .forgive-btn {
@@ -295,7 +297,6 @@
             100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
-        /* подстраховка */
         .hidden {
             display: none;
         }
@@ -304,7 +305,6 @@
 <body>
 
 <div class="container" id="appContainer">
-    <!-- Окно с ползунком -->
     <div class="window" id="sliderWindow">
         <div class="hint-text" id="hintText">Потяни вправо</div>
         <div class="slider-track" id="sliderTrack">
@@ -313,7 +313,6 @@
         </div>
     </div>
 
-    <!-- Финальный контент (появляется после ползунка) -->
     <div class="final-content" id="finalContent">
         <h2>Я тебя люблю❤️</h2>
         <p>Прости меня пожалуйста</p>
@@ -321,7 +320,6 @@
     </div>
 </div>
 
-<!-- Контейнер для падающих сердечек -->
 <div class="hearts-container" id="heartsContainer"></div>
 
 <script>
@@ -335,71 +333,68 @@
         const heartsContainer = document.getElementById('heartsContainer');
 
         let isDragging = false;
-        let isCompleted = false;       // заблокировать повторные срабатывания
+        let isCompleted = false;
 
-        // Функция для генерации сердечек
-        function rainHearts(count = 28) {
-            const symbols = ['❤️', '❤️', '❤️', '❤️', '❤️', '❤️', '❤️', '❤️', '❤️']; // дополнительные для разнообразия
+        // Генерация крупных розовых сердец, стартующих за экраном
+        function rainHearts(count = 36) {
             const containerWidth = window.innerWidth;
             const containerHeight = window.innerHeight;
 
             for (let i = 0; i < count; i++) {
                 const heart = document.createElement('div');
                 heart.className = 'heart';
-                heart.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-                // случайный размер
-                const size = 1.6 + Math.random() * 1.8;
+                // только розовые оттенки (с разной насыщенностью)
+                const pinkShades = ['❤️', '❤️', '❤️', '❤️', '❤️', '❤️', '❤️', '❤️', '❤️'];
+                heart.textContent = pinkShades[Math.floor(Math.random() * pinkShades.length)];
+                
+                // размер побольше
+                const size = 3.4 + Math.random() * 2.2;
                 heart.style.fontSize = size + 'rem';
-                // случайная позиция по X (10% - 90%)
-                const leftPos = 10 + Math.random() * 80;
+                
+                // разброс по горизонтали (от края до края)
+                const leftPos = Math.random() * 100;
                 heart.style.left = leftPos + '%';
-                // разброс по времени анимации
-                const duration = 2.2 + Math.random() * 1.8;
+                
+                // разная длительность падения
+                const duration = 2.4 + Math.random() * 2.2;
                 heart.style.animationDuration = duration + 's';
-                // небольшая задержка для эффекта "ливня"
-                const delay = Math.random() * 0.9;
+                
+                // небольшая задержка, чтобы создать "ливень"
+                const delay = Math.random() * 1.4;
                 heart.style.animationDelay = delay + 's';
-                // случайный поворот
-                heart.style.setProperty('--rot', (Math.random() * 60 - 30) + 'deg');
-
+                
+                // начальное положение чуть выше экрана
+                heart.style.top = '-40px';
+                
                 heartsContainer.appendChild(heart);
 
-                // удаляем после окончания анимации + задержка
+                // удаляем после завершения анимации
                 setTimeout(() => {
                     if (heart.parentNode) {
                         heart.remove();
                     }
-                }, (duration + delay) * 1000 + 300);
+                }, (duration + delay) * 1000 + 400);
             }
         }
 
-        // Функция, вызываемая при завершении слайдера
         function completeSlider() {
             if (isCompleted) return;
             isCompleted = true;
 
-            // 1. Посыпаем сердечки
-            rainHearts(40);
+            // 1. Запускаем дождь из сердец (они перекроют окно)
+            rainHearts(44);
 
             // 2. Через небольшую задержку скрываем окно и показываем финал
             setTimeout(() => {
-                // добавляем класс final к контейнеру — он скрывает окно и показывает финальный контент
                 container.classList.add('final');
-
-                // также скрываем hint через класс (на случай, если финал не сработает)
                 hintText.classList.add('fade');
-
-                // дополнительно убираем окно (на всякий случай)
                 const windowEl = document.getElementById('sliderWindow');
                 if (windowEl) {
                     windowEl.classList.add('hidden');
                 }
-
-                // финальный контент уже показан через .final
-            }, 180);
+            }, 260);
         }
 
-        // ----- Обработка перемещения (мышь + тач) -----
         function getClientX(e) {
             if (e.touches) {
                 return e.touches[0].clientX;
@@ -422,32 +417,25 @@
             const trackRect = sliderTrack.getBoundingClientRect();
             const trackWidth = trackRect.width;
             const thumbWidth = sliderThumb.offsetWidth;
-            const offset = thumbWidth / 2; // смещение для центрирования
+            const offset = thumbWidth / 2;
 
             let clientX = getClientX(e);
             let relativeX = clientX - trackRect.left - offset;
-            // ограничиваем от 0 до trackWidth - thumbWidth
             let maxLeft = trackWidth - thumbWidth;
             let newLeft = Math.min(maxLeft, Math.max(0, relativeX));
 
-            // процент для заполнения
             let percent = (newLeft / maxLeft) * 100;
             if (percent > 100) percent = 100;
             if (percent < 0) percent = 0;
 
-            // двигаем ползунок
             sliderThumb.style.left = newLeft + 'px';
             sliderFill.style.width = percent + '%';
 
-            // если дотянули до конца (> 96%)
             if (percent >= 96) {
-                // завершаем
                 isDragging = false;
-                // фиксируем в конце
                 sliderThumb.style.left = (maxLeft) + 'px';
                 sliderFill.style.width = '100%';
                 completeSlider();
-                // убираем захват
                 document.body.style.touchAction = '';
                 sliderThumb.style.cursor = 'grab';
                 return;
@@ -459,25 +447,23 @@
                 isDragging = false;
                 document.body.style.touchAction = '';
                 sliderThumb.style.cursor = 'grab';
-                // если не дотянули до конца, возвращаем в начало (плавно)
+
                 const currentLeft = parseFloat(sliderThumb.style.left) || 0;
-                const trackWidth = sliderTrack.getBoundingClientRect().width;
+                const trackRect = sliderTrack.getBoundingClientRect();
+                const trackWidth = trackRect.width;
                 const thumbWidth = sliderThumb.offsetWidth;
                 const maxLeft = trackWidth - thumbWidth;
 
-                // если прошли меньше 90% — сброс
                 if (currentLeft < maxLeft * 0.88) {
                     sliderThumb.style.transition = 'left 0.25s ease, width 0.25s ease';
                     sliderThumb.style.left = '4px';
                     sliderFill.style.transition = 'width 0.25s ease';
                     sliderFill.style.width = '0%';
-                    // убираем транзишн после анимации
                     setTimeout(() => {
                         sliderThumb.style.transition = '';
                         sliderFill.style.transition = '';
                     }, 300);
                 } else {
-                    // если почти доехали, но не до конца — довезем до конца и завершим
                     const percent = (currentLeft / maxLeft) * 100;
                     if (percent >= 88) {
                         sliderThumb.style.transition = 'left 0.2s ease';
@@ -494,22 +480,18 @@
             }
         }
 
-        // ----- Привязка событий -----
-        // Мышь
+        // События
         sliderThumb.addEventListener('mousedown', onPointerDown);
         document.addEventListener('mousemove', onPointerMove);
         document.addEventListener('mouseup', onPointerUp);
 
-        // Тач
         sliderThumb.addEventListener('touchstart', onPointerDown, { passive: false });
         document.addEventListener('touchmove', onPointerMove, { passive: false });
         document.addEventListener('touchend', onPointerUp, { passive: false });
         document.addEventListener('touchcancel', onPointerUp, { passive: false });
 
-        // Дополнительно: если кликнуть по треку — переместить ползунок (удобство)
         sliderTrack.addEventListener('click', function(e) {
             if (isCompleted) return;
-            // если клик произошел не по ползунку
             if (e.target === sliderThumb) return;
 
             const trackRect = sliderTrack.getBoundingClientRect();
@@ -520,7 +502,6 @@
             let newLeft = Math.min(maxLeft, Math.max(0, relativeX));
             let percent = (newLeft / maxLeft) * 100;
 
-            // если больше 96% — завершаем, иначе перемещаем в эту позицию
             if (percent >= 96) {
                 sliderThumb.style.transition = 'left 0.2s ease';
                 sliderThumb.style.left = maxLeft + 'px';
@@ -543,19 +524,14 @@
             }
         });
 
-        // предотвращаем скролл при взаимодействии с ползунком
         window.addEventListener('touchmove', function(e) {
             if (isDragging) {
                 e.preventDefault();
             }
         }, { passive: false });
 
-        // Инициализация позиции
         sliderThumb.style.left = '4px';
         sliderFill.style.width = '0%';
-
-        // Если нужно сбросить (при повторном использовании) — но в нашем случае окно исчезает
-        console.log('❤️ Готово. Потяни ползунок вправо!');
     })();
 </script>
 </body>
