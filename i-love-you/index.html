@@ -37,7 +37,6 @@
             min-height: 460px;
         }
 
-        /* Окно с ползунком */
         .window {
             background: rgba(255, 255, 255, 0.75);
             backdrop-filter: blur(4px);
@@ -54,7 +53,6 @@
             transition: opacity 0.3s ease;
         }
 
-        /* Анимация смывания водой */
         .window.splash {
             animation: splashDown 0.8s cubic-bezier(0.34, 1.0, 0.64, 1) forwards;
         }
@@ -87,7 +85,6 @@
             }
         }
 
-        /* Капли воды (для эффекта) */
         .water-drop {
             position: fixed;
             pointer-events: none;
@@ -188,7 +185,6 @@
             opacity: 0.3;
         }
 
-        /* Финальный контент (появляется после смывания) */
         .final-content {
             position: absolute;
             top: 50%;
@@ -256,6 +252,14 @@
             letter-spacing: 1px;
             backdrop-filter: blur(2px);
             background-color: #ff4d6d;
+            cursor: pointer;
+            position: relative;
+            z-index: 30;
+        }
+
+        .forgive-btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 16px 36px rgba(220, 50, 80, 0.5);
         }
 
         .forgive-btn:active {
@@ -263,7 +267,6 @@
             box-shadow: 0 6px 16px rgba(200, 30, 60, 0.5);
         }
 
-        /* Скрываем окно после анимации */
         .window.hidden {
             display: none;
         }
@@ -311,7 +314,7 @@
     <div class="final-content" id="finalContent">
         <h2>Я тебя люблю❤️</h2>
         <p>Прости меня пожалуйста</p>
-        <a href="https://t.me/nerix_cm?text=Прощаю❤️" class="forgive-btn" id="forgiveBtn">Простить(жми)</a>
+        <a href="https://t.me/nerix_cm?text=Прощаю❤️" class="forgive-btn" id="forgiveBtn" target="_blank">Простить</a>
     </div>
 </div>
 
@@ -324,9 +327,18 @@
         const hintText = document.getElementById('hintText');
         const windowEl = document.getElementById('sliderWindow');
         const finalContent = document.getElementById('finalContent');
+        const forgiveBtn = document.getElementById('forgiveBtn');
 
         let isDragging = false;
         let isCompleted = false;
+
+        // Дублируем обработчик клика на кнопку (на случай, если ссылка не сработает)
+        forgiveBtn.addEventListener('click', function(e) {
+            // Если ссылка по каким-то причинам не открывается, дублируем переход
+            if (!e.defaultPrevented) {
+                window.open('https://t.me/nerix_cm?text=Прощаю❤️', '_blank');
+            }
+        });
 
         // Создание капель воды
         function createWaterDrops() {
@@ -376,6 +388,9 @@
                 windowEl.classList.add('hidden');
                 finalContent.classList.add('pop-up');
                 container.style.minHeight = '460px';
+                
+                // Убеждаемся, что кнопка кликабельна
+                forgiveBtn.style.pointerEvents = 'auto';
             }, 850);
         }
 
