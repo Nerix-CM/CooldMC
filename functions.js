@@ -124,7 +124,7 @@ const functionsData = [
 ];
 
 const modsData = [
-    { type: "Ресурс пак (авто загрузка на сервере)", name: "CooldMC-3.2", link: "https://drive.google.com/file/d/1XDH4xAQY2idrOnQ8lcPQwcTyliTrfRSi/view?usp=drivesdk" },
+    { type: "Ресурс пак (авто загрузка на сервере)", name: "CooldMC-3.3", link: "https://drive.google.com/file/d/1JpYr0UB9N0OGwe6Gsp6cn9EFjVmVRKKr/view?usp=drivesdk" },
     { type: "Мод", name: "Armor Poser", link: "https://modrinth.com/mod/armor-poser" },
     { type: "Мод", name: "Simple Voice Chat", link: "https://modrinth.com/plugin/simple-voice-chat" },
     { type: "Мод", name: "PatPat", link: "https://modrinth.com/plugin/patpat" },
